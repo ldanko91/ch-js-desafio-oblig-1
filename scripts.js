@@ -3,11 +3,23 @@ document.addEventListener('DOMContentLoaded', function() {
     let nombre
     let escliente
     let respuesta1
+    let respuesta2
+    let respuesta3
+    let respuesta4
     let nombreuser
     let passuser
     let mailuser
     let celuser
     let cotizacion
+
+    //RECURSOS ARRAYS
+
+    
+    let vanitorys = ['maral 60cm', 'maral 50cm', 'cedro 60cm', 'paraiso 80cm']
+    let tanques = ['tanque 500 lt bicapa','tanque 500 lt tricapa','tanque 750 lt bicapa','tanque 750 lt tricapa']
+    let tfagua = ['caño 20mm agua','caño 25mm agua','codo 20mm agua','codo 25mm agua']
+    let tfgas = ['caño 20mm sigas','caño 25mm sigas','codo 20mm sigas','codo 25mm sigas']
+    let rubros = [vanitorys,tanques,tfagua,tfgas]
 
     function clientedb(nombre, mailuser, celuser) {
         console.log("El sitio está siendo navegado por" + nombre + ", con mail " + mailuser + ", y celular " + celuser)
@@ -17,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log(nombre)
         
-    escliente = prompt("Que bueno que estés acá " + nombre + ". Eres un cliente previamente registrado?\n'1' Sí, estoy registrado previamente\n'2' Aún no estoy registrado") 
+    escliente = prompt("Que bueno que estés acá " + nombre + ". Eres un cliente previamente registrado?\n'1' Sí, estoy registrado previamente\n'2' Aún no estoy registrado\n'3' Soy vendedor") 
 
-        while (isNaN(escliente) || escliente<1 || escliente>2) {
+        while (isNaN(escliente) || escliente<1 || escliente>3) {
 
             alert("No inresaste una opción válida.\n Inténtalo nuevamente, o pulsa cancelar para salir")
             escliente = prompt("Eres un cliente previamente registrado?\n'1' Sí, estoy registrado previamente\n'2' Aún no estoy registrado")
@@ -29,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("Bienvenido nuevamente " + nombre + "! Cómo podemos ayudarte hoy?")
             respuesta1 = prompt("1 Necesito una cotización personalizada.\n2 Necesito conocer la dirección del local.\n3 Quiero los links a las redes sociales.")
         
-        } else {
+        }if (escliente == 2) {
             alert (nombre + ", vamos a registrar tu usuario. Por favor completa los siguientes campos:")
             nombreuser = prompt("Ingresa tu nombre y apellido")
             passuser = prompt("Ingresa una contraseña de 6 dígitos numéricos como mínimo")
@@ -45,6 +57,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             
             alert ("Felicitaciones " + nombre + "! Completamos tu registro con los siguientes datos:\nNombre: " + nombreuser + "\nE Mail: " + mailuser + "\nCelular: " + celuser +"\nA la brevedad nos pondremos en contacto!")
+
+            // PARA DESAFIO COMPLEMENTARIO ARRAYS
+            // SIMULA SER AREA DE BACK PARA EMPLEADOS
+            
+            } else if (escliente==3) {
+                alert ("Bienvenido nuevamente, " + nombre + "!")
+                respuesta2 = prompt("Qué acción necesitas llevar a cabo?\n1 Conocer los rubros disponibles\n2 Añadir o quitar un producto\n3 Salir")
+
+                while (isNaN(respuesta2) || respuesta2<1 || respuesta2>3) {
+
+                    alert("No inresaste una opción válida.\n Inténtalo nuevamente, o pulsa cancelar para salir")
+                    respuesta2 = prompt("Qué acción necesitas llevar a cabo?\n1 Conocer los productos disponibles\n2 Añadir o quitar un producto\n3 Salir")
+                    }
+
+                if (respuesta2 == 1) {
+                    for (let i = 0; i < rubros.length; i++) {
+                        alert (rubros [i])
+                    }
+                } else if (respuesta2 == 2) {
+                    respuesta3 = prompt ("Desea agregar o quitar un producto?\n1 Agregar\n2 Quitar")
+                    while (isNaN(respuesta3) || respuesta3<1 || respuesta2>2) {
+
+                    alert("No inresaste una opción válida.\n Inténtalo nuevamente, o pulsa cancelar para salir")
+                    respuesta3 = prompt("Desea agregar o quitar un producto?\n1 Agregar\n2 Quitar")
+                    }
+
+                    if (respuesta3 == 1) {
+                        respuesta4 = prompt("Escriba en minúsculas el nombre del rubro al cual desea agregar el producto:\n" + rubros.join(", "))
+                            respuesta4.unshift(prompt("Escriba el nombre del artículo"))
+                            for (let i = 0; i < respuesta4.length; i++) {
+                                alert (respuesta4 [i])
+                        }  
+                }
+
             }
 
             if (respuesta1 == 1) {
@@ -77,5 +123,5 @@ document.addEventListener('DOMContentLoaded', function() {
             clientedb(nombre, mailuser, celuser)
 
             //la funcion clientedb simula el proceso de almacenado en una DB de clientes
-
+        }
 }, false);
